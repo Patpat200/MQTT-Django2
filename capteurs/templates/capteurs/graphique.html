@@ -3,55 +3,30 @@
 <h2>Graphique — {{ capteur.nom_capteur }}</h2>
 <a href="/capteur/{{ capteur.id_capteur }}/" class="btn btn-secondary mb-3">← Retour</a>
 
-<!-- Le <canvas> est une zone de dessin HTML. Chart.js va dessiner le graphique dedans. -->
 <canvas id="graph" height="120"></canvas>
 
-<!-- On charge la librairie JavaScript Chart.js depuis Internet (CDN) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // -----------------------------------------------------------------
-    // ÉTAPE 1 : récupérer les données envoyées par la vue Python
-    // -----------------------------------------------------------------
-    // Dans views.py (fonction graphique), on a préparé deux listes :
-    //   labels  -> les dates/heures de chaque mesure
-    //   valeurs -> les températures correspondantes
-    // Django les insère ici sous forme de texte JSON, par exemple :
-    //   labels  = ["2026-06-19 10:00:00", "2026-06-19 10:05:00"]
-    //   valeurs = [21.5, 22.0]
-    // Le filtre "|safe" dit à Django : "ne touche pas à ce texte,
-    // affiche-le tel quel, c'est déjà du JavaScript valide".
     var labels = {{ labels|safe }};
     var valeurs = {{ valeurs|safe }};
-
-    // -----------------------------------------------------------------
-    // ÉTAPE 2 : récupérer la zone de dessin (le <canvas> ci-dessus)
-    // -----------------------------------------------------------------
     var zoneDeDessin = document.getElementById('graph');
 
-    // -----------------------------------------------------------------
-    // ÉTAPE 3 : créer le graphique avec Chart.js
-    // -----------------------------------------------------------------
     new Chart(zoneDeDessin, {
-        type: 'line',   // "line" = graphique en courbe (on pourrait aussi mettre 'bar', 'pie', ...)
-
+        type: 'line',
         data: {
-            // labels = ce qui sera écrit sous l'axe horizontal (les dates/heures)
             labels: labels,
-
-            // un "dataset" = une courbe à tracer. On n'en a qu'une seule ici : la température.
             datasets: [{
-                label: 'Température (°C)',  // texte affiché dans la légende
-                data: valeurs,               // les points de la courbe (axe vertical)
-                borderColor: 'rgba(255,99,132,1)',        // couleur de la ligne
-                backgroundColor: 'rgba(255,99,132,0.1)',  // couleur sous la ligne
-                tension: 0.3,   // 0 = ligne droite entre les points, plus on monte plus c'est arrondi
-                fill: true      // remplit l'espace sous la courbe
+                label: 'Température (°C)',
+                data: valeurs,
+                borderColor: 'rgba(255,99,132,1)',
+                backgroundColor: 'rgba(255,99,132,0.1)',
+                tension: 0.3,
+                fill: true
             }]
         },
-
         options: {
-            responsive: true   // le graphique s'adapte automatiquement à la largeur de l'écran
+            responsive: true
         }
     });
 </script>

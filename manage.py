@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-"""Utilitaire Django en ligne de commande (administration du projet)."""
 import os
 import sys
 
