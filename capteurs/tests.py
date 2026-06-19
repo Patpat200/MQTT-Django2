@@ -1,3 +1,3 @@
 from django.test import TestCase
 
-# Create your tests here.
+# Pas de tests automatiques pour l'instant.
