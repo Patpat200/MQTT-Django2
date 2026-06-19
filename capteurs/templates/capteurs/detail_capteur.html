@@ -1,0 +1,33 @@
+{% extends 'capteurs/base.html' %}
+{% block content %}
+<h2>{{ capteur.nom_capteur }}</h2>
+<p class="text-muted">ID : <code>{{ capteur.id_capteur }}</code> | Pièce : {{ capteur.piece }}</p>
+
+<div class="card mb-4">
+    <div class="card-header">Modifier (nom et emplacement uniquement)</div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="/" class="btn btn-secondary ms-2">Retour</a>
+        </form>
+    </div>
+</div>
+
+<h4>50 dernières mesures</h4>
+<table class="table table-sm table-striped">
+    <thead><tr><th>#</th><th>Timestamp</th><th>Température (°C)</th></tr></thead>
+    <tbody>
+        {% for m in mesures %}
+        <tr>
+            <td>{{ m.id_mesure }}</td>
+            <td>{{ m.timestamp_mesure }}</td>
+            <td><strong>{{ m.temperature }}</strong></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Aucune mesure.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

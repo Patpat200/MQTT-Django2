@@ -1,0 +1,24 @@
+{% extends 'capteurs/base.html' %}
+{% block content %}
+<h2>Capteurs enregistrés</h2>
+<table class="table table-striped">
+    <thead><tr><th>ID</th><th>Nom</th><th>Pièce</th><th>Emplacement</th><th>Actions</th></tr></thead>
+    <tbody>
+        {% for c in capteurs %}
+        <tr>
+            <td><code>{{ c.id_capteur }}</code></td>
+            <td>{{ c.nom_capteur }}</td>
+            <td>{{ c.piece }}</td>
+            <td>{{ c.emplacement }}</td>
+            <td>
+                <a href="/capteur/{{ c.id_capteur }}/" class="btn btn-sm btn-primary">Détail</a>
+                <a href="/capteur/{{ c.id_capteur }}/graphique/" class="btn btn-sm btn-info">Graphique</a>
+                <a href="/capteur/{{ c.id_capteur }}/supprimer/" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted">Aucun capteur — le script MQTT tourne-t-il ?</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

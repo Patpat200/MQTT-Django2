@@ -1,0 +1,42 @@
+{% extends 'capteurs/base.html' %}
+{% block content %}
+<h2>Données de température</h2>
+
+<div class="card mb-4">
+    <div class="card-header">Filtres (cumulables)</div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">{{ form.nom_ou_id.label_tag }}{{ form.nom_ou_id }}</div>
+            <div class="col-md-3">{{ form.date_debut.label_tag }}{{ form.date_debut }}</div>
+            <div class="col-md-3">{{ form.date_fin.label_tag }}{{ form.date_fin }}</div>
+            <div class="col-md-2 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+                <a href="/donnees/" class="btn btn-outline-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if temp_moyenne %}
+<div class="alert alert-info">
+    Température moyenne (résultats affichés) : <strong>{{ temp_moyenne }}°C</strong>
+</div>
+{% endif %}
+
+<table class="table table-striped table-sm">
+    <thead><tr><th>#</th><th>Capteur</th><th>Pièce</th><th>Timestamp</th><th>Temp (°C)</th></tr></thead>
+    <tbody>
+        {% for m in mesures %}
+        <tr>
+            <td>{{ m.id_mesure }}</td>
+            <td>{{ m.id_capteur.nom_capteur }}</td>
+            <td>{{ m.id_capteur.piece }}</td>
+            <td>{{ m.timestamp_mesure }}</td>
+            <td><strong>{{ m.temperature }}</strong></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted">Aucune donnée pour ces filtres.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

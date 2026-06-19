@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="30">
+    <title>SAE 2.04 — Groupe 11</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">SAE 2.04 — Groupe 11</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/">Capteurs</a>
+            <a class="nav-link" href="/donnees/">Données</a>
+            <a class="nav-link" href="/export/">Export CSV</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
