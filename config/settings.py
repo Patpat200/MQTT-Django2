@@ -74,3 +74,4 @@ USE_TZ = False
 USE_I18N = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
